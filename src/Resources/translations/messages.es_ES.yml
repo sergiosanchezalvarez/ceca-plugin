@@ -1,0 +1,17 @@
+sergiosanchezalvarez:
+    ceca_plugin:
+        #goid: GoPay ID
+        #clientId: Klientské ID
+        #clientSecret: Tajný klíč
+        #isProductionMode: Produkční mód
+        #gateway_label: GoPay
+        isProductionMode: ¿Producción?
+        MerchantID: Merchant ID
+        AcquirerBIN: Acquirer BIN
+        TerminalID: Terminal ID
+        ClaveCifrado: Clave cifrado
+        TipoMoneda: Tipo Moneda
+        Exponente: Exponente
+        Cifrado: Cifrado
+        Idioma: Idioma
+        Pago_soportado: Pago soportado

@@ -1,0 +1,12 @@
+services:
+    sergiosanchezalvarez.ceca.form.type.gateway_configuration:
+        class: Sergiosanchezalvarez\CecaPlugin\Form\Type\CecaGatewayConfigurationType
+        tags:
+            - { name: sylius.gateway_configuration_type, type: ceca, label: sergiosanchezalvarez.ceca_plugin.gateway_label }
+            - { name: form.type }
+
+    sergiosanchezalvarez.ceca.gateway_factory:
+        class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
+        arguments: [Sergiosanchezalvarez\CecaPlugin\GoPayGatewayFactory]
+        tags:
+            - { name: payum.gateway_factory_builder, factory: ceca }

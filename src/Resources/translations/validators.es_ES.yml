@@ -1,0 +1,23 @@
+sergiosanchezalvarez:
+    ceca_plugin:
+        gateway_configuration:
+            isProductionMode: Entorno
+                not_blank: Debe introducir el Entorno
+            merchantID: Merchant ID
+                not_blank: Debe introducir el MerchantID
+            acquirerBIN: Acquirer BIN
+                not_blank: Debe introducir el Acquirer BIN
+            terminalID: Terminal ID
+                not_blank: Debe introducir el Terminal ID
+            claveCifrado: Clave cifrado
+                not_blank: Debe introducir la Clave Cifrado
+            tipoMoneda: Tipo Moneda
+                not_blank: Debe introducir el Tipo Moneda (978)
+            exponente: Exponente
+                not_blank: Debe introducir el Exponente (2)
+            cifrado: Cifrado
+                not_blank: Debe introducir el Cifrado (SHA1)
+            idioma: Idioma
+                not_blank: Debe introducir el Idioma (1)
+            pagoSoportado: Pago soportado
+                not_blank: Debe introducir el Pago Soportado (SSL)

@@ -1,0 +1,19 @@
+{
+    "name": "sergiosanchezalvarez/ceca-plugin",
+    "type": "sylius-plugin",
+    "description": "CECA payment gateway plugin for Sylius applications.",
+    "license": "MIT",
+    "require": {
+        "php": "^7.1",
+        "sylius/sylius": "^1.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sergiosanchezalvarez\\CecaPlugin\\": "src/",
+            "Tests\\Sergiosanchezalvarez\\CecaPlugin\\": "tests/"
+        }
+    }
+}
