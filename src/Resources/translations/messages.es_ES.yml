@@ -1,10 +1,6 @@
 sergiosanchezalvarez:
     ceca_plugin:
-        #goid: GoPay ID
-        #clientId: Klientské ID
-        #clientSecret: Tajný klíč
-        #isProductionMode: Produkční mód
-        #gateway_label: GoPay
+        gateway_label: Pago con TPV CECA
         isProductionMode: ¿Producción?
         MerchantID: Merchant ID
         AcquirerBIN: Acquirer BIN
