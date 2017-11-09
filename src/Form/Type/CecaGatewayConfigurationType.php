@@ -77,7 +77,7 @@ final class CecaGatewayConfigurationType extends AbstractType {
                 ]
             ])
             ->add('idioma', TextType::class, [
-                'label' => 'sergiosanchezalvarez.idioma.merchantID',
+                'label' => 'sergiosanchezalvarez.ceca_plugin.idioma',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'sergiosanchezalvarez.ceca_plugin.gateway_configuration.idioma.not_blank',
@@ -97,16 +97,3 @@ final class CecaGatewayConfigurationType extends AbstractType {
             ]);
     }
 }
-
-/*
- * isProductionMode:
-    MerchantID: Merchant ID
-    AcquirerBIN: Acquirer BIN
-    TerminalID: Terminal ID
-    ClaveCifrado: Clave cifrado
-    TipoMoneda: Tipo Moneda
-    Exponente: Exponente
-    Cifrado: Cifrado
-    Idioma: Idioma
-    Pago_soportado: Pago soportado
- */

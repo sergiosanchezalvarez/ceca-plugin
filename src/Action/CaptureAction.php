@@ -34,9 +34,9 @@ final class CaptureAction implements ActionInterface, GatewayAwareInterface {
         $model['customer'] = $request->getFirstModel()->getOrder()->getCustomer();
         $model['order'] = $request->getFirstModel()->getOrder();
 
-        $goPayAction = $this->getGoPayAction($request->getToken(), $model);
+        $cecaAction = $this->getCecaAction($request->getToken(), $model);
 
-        $this->getGateway()->execute($goPayAction);
+        $this->getGateway()->execute($cecaAction);
     }
 
     public function supports($request)

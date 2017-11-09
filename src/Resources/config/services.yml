@@ -7,6 +7,6 @@ services:
 
     sergiosanchezalvarez.ceca.gateway_factory:
         class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
-        arguments: [Sergiosanchezalvarez\CecaPlugin\GoPayGatewayFactory]
+        arguments: [Sergiosanchezalvarez\CecaPlugin\CecaGatewayFactory]
         tags:
             - { name: payum.gateway_factory_builder, factory: ceca }
