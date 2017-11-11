@@ -5,7 +5,6 @@ namespace Sergiosanchezalvarez\CecaPlugin;
 use Sergiosanchezalvarez\CecaPlugin\Action\CaptureAction;
 use Sergiosanchezalvarez\CecaPlugin\Action\ConvertPaymentAction;
 use Sergiosanchezalvarez\CecaPlugin\Action\NotifyAction;
-use Sergiosanchezalvarez\CecaPlugin\Action\CecaAction;
 use Sergiosanchezalvarez\CecaPlugin\Action\StatusAction;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayFactory;
@@ -21,8 +20,7 @@ class CecaGatewayFactory extends GatewayFactory {
         $config->defaults([
             'payum.factory_name' => 'ceca',
             'payum.factory_title' => 'Ceca',
-            // Main method for setting up gopay api
-            'payum.action.set_ceca' => new CecaAction(),
+            // Main method for setting up ceca api
             'payum.action.capture' => new CaptureAction(),
             'payum.action.status' => new StatusAction(),
             'payum.action.convert_payment' => new ConvertPaymentAction(),
@@ -36,16 +34,12 @@ class CecaGatewayFactory extends GatewayFactory {
                 'acquirerBIN' => '',
                 'terminalID' => '',
                 'claveCifrado' => '',
-                'tipoMoneda' => '',
-                'exponente' => '',
-                'cifrado' => '',
-                'idioma' => '',
                 'isProductionMode' => false
             ];
             $config->defaults($config['payum.default_options']);
             // Set Ceca required fields
 
-            $config['payum.required_options'] = ['merchantID', 'acquirerBIN', 'terminalID', 'claveCifrado', 'tipoMoneda', 'exponente', 'cifrado', 'idioma', 'pagoSoportado'];
+            $config['payum.required_options'] = ['merchantID', 'acquirerBIN', 'terminalID', 'claveCifrado'];
             // Set Payum API
             $config['payum.api'] = function (ArrayObject $config) {
                 $config->validateNotEmpty($config['payum.required_options']);
@@ -55,11 +49,7 @@ class CecaGatewayFactory extends GatewayFactory {
                     'acquirerBIN' => $config['acquirerBIN'],
                     'terminalID' => $config['terminalID'],
                     'claveCifrado' => $config['claveCifrado'],
-                    'tipoMoneda' => $config['tipoMoneda'],
-                    'exponente' => $config['exponente'],
-                    'cifrado' => $config['cifrado'],
-                    'idioma' => $config['idioma'],
-                    'pagoSoportado' => $config['pagoSoportado'],
+                    'isProductionMode' => $config['isProductionMode'],
                     'timeout' => 30
                 ];
 

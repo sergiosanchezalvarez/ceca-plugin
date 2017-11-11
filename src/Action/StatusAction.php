@@ -2,7 +2,7 @@
 
 namespace Sergiosanchezalvarez\CecaPlugin\Action;
 
-use Sergiosanchezalvarez\CecaPlugin\CecaWrapper;
+use Sergiosanchezalvarez\CecaPlugin\Api;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
@@ -15,20 +15,30 @@ final class StatusAction implements ActionInterface {
         /** @var $request GetStatusInterface */
         RequestNotSupportedException::assertSupports($this, $request);
         $model = ArrayObject::ensureArrayObject($request->getModel());
-        $status = $model['status'];
 
-        if ($status === null || $status === CecaWrapper::CREATED) {
+
+        if (null == $model['Num_operacion']) {
             $request->markNew();
             return;
         }
 
-        if ($status === CecaWrapper::PAID) {
-            $request->markCaptured();
+        if ($model['Num_operacion'] && null === $model['Firma']) {
+            echo "Pendiente";
+            $request->markPending();
             return;
         }
 
-        if ($status === CecaWrapper::CANCELED) {
+        if (isset($_GET['pagocancelado'])) {
+            echo "Cancelado";
+            var_dump($request);exit;
             $request->markCanceled();
+            return;
+        }
+
+        if (0 <= $model['Firma'] && 99 >= $model['Firma']) {
+            echo "Ok";
+            var_dump($request);exit;
+            $request->markCaptured();
             return;
         }
 

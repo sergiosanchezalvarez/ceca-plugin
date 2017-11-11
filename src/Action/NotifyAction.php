@@ -23,12 +23,15 @@ final class NotifyAction implements ActionInterface, GatewayAwareInterface {
      * @throws Payum\Core\Exception\RequestNotSupportedException if the action dose not support the request.
      */
     public function execute($request) {
+        echo "Notify Action";exit;
         /** @var $request Payum\Core\Request\Notify */
         RequestNotSupportedException::assertSupports($this, $request);
 
         $setCeca = new SetCeca($request->getToken());
         $setCeca->setModel($request->getModel());
         $this->getGateway()->execute($setCeca);
+
+        $this->get('payum')->getHttpRequestVerifier()->getVerify();
 
         $status = new GetHumanStatus($request->getToken());
         $status->setModel($request->getModel());

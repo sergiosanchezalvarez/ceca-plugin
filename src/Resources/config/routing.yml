@@ -1,0 +1,5 @@
+payum_ceca_notification_url:
+    path: /payum/ceca/bank-notification
+    methods: [GET, POST]
+    defaults:
+        _controller: CecaPlugin:Notify:do

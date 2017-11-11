@@ -52,48 +52,21 @@ final class CecaGatewayConfigurationType extends AbstractType {
                     ])
                 ]
             ])
-            ->add('tipoMoneda', TextType::class, [
-                'label' => 'sergiosanchezalvarez.ceca_plugin.tipoMoneda',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'sergiosanchezalvarez.ceca_plugin.gateway_configuration.tipoMoneda.not_blank',
-                    ])
-                ]
-            ])
-            ->add('exponente', TextType::class, [
-                'label' => 'sergiosanchezalvarez.ceca_plugin.exponente',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'sergiosanchezalvarez.ceca_plugin.gateway_configuration.exponente.not_blank',
-                    ])
-                ]
-            ])
-            ->add('cifrado', TextType::class, [
-                'label' => 'sergiosanchezalvarez.ceca_plugin.cifrado',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'sergiosanchezalvarez.ceca_plugin.gateway_configuration.cifrado.not_blank',
-                    ])
-                ]
-            ])
-            ->add('idioma', TextType::class, [
-                'label' => 'sergiosanchezalvarez.ceca_plugin.idioma',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'sergiosanchezalvarez.ceca_plugin.gateway_configuration.idioma.not_blank',
-                    ])
-                ]
-            ])
-            ->add('pagoSoportado', TextType::class, [
-                'label' => 'sergiosanchezalvarez.ceca_plugin.merchantID',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'sergiosanchezalvarez.ceca_plugin.gateway_configuration.pagoSoportado.not_blank',
-                    ])
-                ]
-            ])
             ->add('isProductionMode', CheckboxType::class, [
                 'label' => 'sergiosanchezalvarez.ceca_plugin.isProductionMode'
             ]);
     }
 }
+
+/*
+ * isProductionMode:
+    MerchantID: Merchant ID
+    AcquirerBIN: Acquirer BIN
+    TerminalID: Terminal ID
+    ClaveCifrado: Clave cifrado
+    TipoMoneda: Tipo Moneda
+    Exponente: Exponente
+    Cifrado: Cifrado
+    Idioma: Idioma
+    Pago_soportado: Pago soportado
+ */

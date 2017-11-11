@@ -11,13 +11,3 @@ sergiosanchezalvarez:
                 not_blank: Debe introducir el Terminal ID
             claveCifrado:
                 not_blank: Debe introducir la Clave Cifrado
-            tipoMoneda:
-                not_blank: Debe introducir el Tipo Moneda (978)
-            exponente:
-                not_blank: Debe introducir el Exponente (2)
-            cifrado:
-                not_blank: Debe introducir el Cifrado (SHA1)
-            idioma:
-                not_blank: Debe introducir el Idioma (1)
-            pagoSoportado:
-                not_blank: Debe introducir el Pago Soportado (SSL)

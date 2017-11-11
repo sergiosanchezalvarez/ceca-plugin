@@ -6,8 +6,3 @@ sergiosanchezalvarez:
         AcquirerBIN: Acquirer BIN
         TerminalID: Terminal ID
         ClaveCifrado: Clave cifrado
-        TipoMoneda: Tipo Moneda
-        Exponente: Exponente
-        Cifrado: Cifrado
-        Idioma: Idioma
-        Pago_soportado: Pago soportado
