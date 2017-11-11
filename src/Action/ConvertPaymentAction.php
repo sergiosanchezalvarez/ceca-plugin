@@ -8,17 +8,34 @@ use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
+use Payum\Core\Exception\UnsupportedApiException;
 use Payum\Core\Model\PaymentInterface;
 use Payum\Core\Request\Convert;
+use Payum\Core\ApiAwareInterface;
 
 /**
  * Class ConvertPaymentAction
  * @package Sergiosanchezalvarez\CecaPlugin\Action
  * @author Sergio Sánchez <sergiosanchezalvarez@gmail.com>
  */
-final class ConvertPaymentAction implements ActionInterface, GatewayAwareInterface {
+final class ConvertPaymentAction implements ActionInterface, GatewayAwareInterface, ApiAwareInterface {
     use GatewayAwareTrait;
 
+    /**
+     * @var Api
+     */
+    protected $api = [];
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setApi($api) {
+        if (!is_array($api)) {
+            throw new UnsupportedApiException('Not supported.');
+        }
+
+        $this->api = $api;
+    }
 
 
     /**
@@ -35,7 +52,14 @@ final class ConvertPaymentAction implements ActionInterface, GatewayAwareInterfa
 
         $options = array(
             'Amount' => $payment->getTotalAmount(),
-            'Num_operacion' => $payment->getNumber()
+            'Num_operacion' => $payment->getNumber(),
+            /* Aprovecho para inyectar aquí los valores, así los tengo en el controlador y puedo realizar la verificación de la firma al vuelo */
+            'Environment' => $this->api['isProductionMode'] ? 'real' : 'test', // Puedes indicar test o real
+            'MerchantID' => $this->api['merchantID'],
+            'AcquirerBIN' => $this->api['acquirerBIN'],
+            'TerminalID' => $this->api['terminalID'],
+            'ClaveCifrado' => $this->api['claveCifrado'],
+            'PaymentTokenHash' => $request->getToken()->getHash()
         );
 
         $details->defaults($options);

@@ -54,7 +54,7 @@ final class CaptureAction implements ActionInterface, ApiAwareInterface {
     {
         RequestNotSupportedException::assertSupports($this, $request);
 
-        if (isset($_GET['pagocancelado'])) {
+        if (isset($_GET['pagocancelado']) or isset($_GET['pagoisok'])) {
             return;
         }
 
@@ -67,7 +67,7 @@ final class CaptureAction implements ActionInterface, ApiAwareInterface {
 
         // inyectamos los demás valores necesarios para la llamada a Ceca
         $cecaOptions = array(
-            'Environment' => $this->api['isProductionMode'] ? 'real' : 'test', // Puedes indicar test o real
+            'Environment' => $this->api['isProductionMode'] ? 'real' : 'test',
             'MerchantID' => $this->api['merchantID'],
             'AcquirerBIN' => $this->api['acquirerBIN'],
             'TerminalID' => $this->api['terminalID'],
@@ -87,7 +87,7 @@ final class CaptureAction implements ActionInterface, ApiAwareInterface {
         $apiCeca->setFormHiddens(array(
             'Num_operacion' => $postData['Num_operacion'],
             'Importe' => $postData['Amount'],
-            'URL_OK' => $postData['url_ok'],
+            'URL_OK' => $postData['url_ok'].'?pagoisok=1',
             'URL_NOK' => $postData['url_nok'].'?pagocancelado=1',
             'Descripcion' => $request->getToken()->getHash() // The payment token... to verify payments
         ));

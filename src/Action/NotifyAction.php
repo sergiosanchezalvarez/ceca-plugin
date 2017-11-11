@@ -31,8 +31,6 @@ final class NotifyAction implements ActionInterface, GatewayAwareInterface {
         $setCeca->setModel($request->getModel());
         $this->getGateway()->execute($setCeca);
 
-        $this->get('payum')->getHttpRequestVerifier()->getVerify();
-
         $status = new GetHumanStatus($request->getToken());
         $status->setModel($request->getModel());
         $this->getGateway()->execute($status);

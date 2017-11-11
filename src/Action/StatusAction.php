@@ -16,6 +16,15 @@ final class StatusAction implements ActionInterface {
         RequestNotSupportedException::assertSupports($this, $request);
         $model = ArrayObject::ensureArrayObject($request->getModel());
 
+        if (isset($_GET['pagoisok'])) {
+            $request->markCaptured();
+            return;
+        }
+
+        if (isset($_GET['pagocancelado'])) {
+            $request->markCanceled();
+            return;
+        }
 
         if (null == $model['Num_operacion']) {
             $request->markNew();
@@ -23,24 +32,11 @@ final class StatusAction implements ActionInterface {
         }
 
         if ($model['Num_operacion'] && null === $model['Firma']) {
-            echo "Pendiente";
             $request->markPending();
             return;
         }
 
-        if (isset($_GET['pagocancelado'])) {
-            echo "Cancelado";
-            var_dump($request);exit;
-            $request->markCanceled();
-            return;
-        }
 
-        if (0 <= $model['Firma'] && 99 >= $model['Firma']) {
-            echo "Ok";
-            var_dump($request);exit;
-            $request->markCaptured();
-            return;
-        }
 
         $request->markUnknown();
     }

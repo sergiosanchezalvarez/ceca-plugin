@@ -15,6 +15,9 @@ use Payum\Core\GatewayFactory;
  * @author Sergio Sánchez <sergiosanchezalvarez@gmail.com>
  */
 class CecaGatewayFactory extends GatewayFactory {
+    /**
+     * @param ArrayObject $config
+     */
     protected function populateConfig(ArrayObject $config)
     {
         $config->defaults([
@@ -40,6 +43,7 @@ class CecaGatewayFactory extends GatewayFactory {
             // Set Ceca required fields
 
             $config['payum.required_options'] = ['merchantID', 'acquirerBIN', 'terminalID', 'claveCifrado'];
+
             // Set Payum API
             $config['payum.api'] = function (ArrayObject $config) {
                 $config->validateNotEmpty($config['payum.required_options']);

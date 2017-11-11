@@ -6,13 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sergiosanchezalvarez\CecaPlugin\ApiCeca;
+use Payum\Core\Request\GetHumanStatus;
+use Sylius\Component\Core\OrderPaymentStates;
+use Sylius\Component\Payment\Model\PaymentInterface;
 
 final class NotifyController extends Controller
 {
     public function doAction(Request $request):Response
     {
         // Nos viene por post...
-
         $params = $request->request->all();
 
         $order_id = (int) $params['Num_operacion']; // casteo a entero para eliminar los ceros
@@ -41,18 +43,39 @@ final class NotifyController extends Controller
             [Idusuario]
         */
 
-        $order_id = 29; // overrideamos de momento
+        //$order_id = 34; // overrideamos de momento para las pruebas
         $payment = $this->container->get('sylius.repository.payment')->findOneBy(['id' => $order_id]);
 
-        /* Comprobar firma...
+        /**
+         * var $details Array
+         */
+        $details = $payment->getDetails();
 
-        Si tod OK redirigir a url_ok con parámetro de firma comprobada (por post casi mejor)
-        */
+        $cecaOptions = array(
+            'Environment' => $details['Environment'],
+            'MerchantID' => $details['MerchantID'],
+            'AcquirerBIN' => $details['AcquirerBIN'],
+            'TerminalID' => $details['TerminalID'],
+            'ClaveCifrado' => $details['ClaveCifrado']);
+        $apiCeca = new ApiCeca($cecaOptions);
 
+        $apiCeca->setFormHiddens(array(
+            'Num_operacion' => $details['Num_operacion'],
+            'Importe' => $details['Amount'],
+            'URL_OK' => $details['url_ok'],
+            'URL_NOK' => $details['url_nok'].'?pagocancelado=1'
+        ));
 
+        $apiCeca->checkTransaction($params);
 
-        var_dump($payment->getDetails()['url_ok']);
-        var_dump($payment);
-        exit;
+        $payment->setState(PaymentInterface::STATE_COMPLETED);
+        $payment->getOrder()->setPaymentState(OrderPaymentStates::STATE_PAID);
+
+        $manager = $this->container->get('sylius.manager.payment');
+        $manager->persist($payment);
+        $manager->flush();
+        // y rezar... en teoría ya está OK el pago...
+
+        return new Response();
     }
 }
